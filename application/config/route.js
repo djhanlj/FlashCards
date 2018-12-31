@@ -40,8 +40,6 @@ const Tabs = createMaterialTopTabNavigator({
     }
   })
 
-
-  
   const MainNavigator = createStackNavigator({
     Home: {
       screen: Tabs,
@@ -51,7 +49,6 @@ const Tabs = createMaterialTopTabNavigator({
     },
 
   })
-
 
   export const RouteStatusBar = ({ backgroundColor, ...props }) => {
     return (
