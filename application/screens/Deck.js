@@ -1,16 +1,18 @@
 import React from 'react'
-import { View, Text, FlatList, StyleSheet } from 'react-native'
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
 import getObjetos from '../utils/objeto'
 
-function ItemView({ title, questions }) {
+function ItemView({ title, questions }, navigation) {
   return (
-    <View style={ styles.listDecker }>
-      <Text style={[styles.item, {marginTop: 25}]}>{title}</Text>
+    <TouchableOpacity style={styles.listDecker}
+      onPress={() => navigation.navigate('DeckDetail')}>
+
+      <Text style={[styles.item, { marginTop: 25 }]}>{title}</Text>
       <View style={styles.item}>
-        <Text style={styles.deckerQuantidade}>{ questions.length }</Text>
+        <Text style={styles.deckerQuantidade}>{questions.length}</Text>
         <Text style={styles.deckerQuantidade}>cards</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -22,38 +24,59 @@ export default class Deck extends React.Component {
   componentDidMount() {
     const objeto = getObjetos();
     const decks = Object.keys(objeto).map(i => objeto[i])
-    this.setState({decks})
+    this.setState({ decks })
+
+    
   }
 
-  renderItem =({ item }) => {
-    return <ItemView  {... item} />
+  renderItem = ({ item }) => {
+    return (
+      <TouchableOpacity style={styles.listDecker}
+        onPress={() => this.props.navigation.navigate('DeckDetail')}>
+        <Text style={[styles.item, { marginTop: 25 }]}>{item.title}</Text>
+        <View style={styles.item}>
+          <Text style={styles.deckerQuantidade}>{item.questions.length}</Text>
+          <Text style={styles.deckerQuantidade}>cards</Text>
+        </View>
+      </TouchableOpacity>
+    )
   }
+
+
 
   renderSeparator = () => {
     return (
-      <View style={styles.line}/>
+      <View style={styles.line} />
     );
   };
 
   render() {
     const { decks } = this.state
+    console.log(decks)
     return (
       <View style={styles.container}>
         <Text style={styles.cabecalho}>List Decks</Text>
-        <View style={styles.line}/>
-        <FlatList 
-          data={decks}
-          renderItem={ this.renderItem }
-          ItemSeparatorComponent={this.renderSeparator}
-          keyExtractor={item => item.title}
-        />
+        <View style={styles.line} />
+        {decks.length > 0 
+        ? <FlatList
+        data={decks}
+        renderItem={this.renderItem}
+        ItemSeparatorComponent={this.renderSeparator}
+        keyExtractor={item => item.title}
+      /> 
+        : 
+        <View style={styles.container}>
+        <Text>Não há decks cadastrados!</Text>
+      </View>
+    }
+        
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     marginTop: 25,
     marginLeft: 10,
     marginRight: 10,
@@ -61,26 +84,26 @@ const styles = StyleSheet.create({
   listDecker: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    
+
   },
-  line:{
+  line: {
     height: 1,
     width: "100%",
     backgroundColor: "#CED0CE",
-   
+
   },
-  item:{
+  item: {
     fontSize: 20,
     marginTop: 15,
     marginBottom: 15,
     alignItems: 'center'
-    
+
   },
-  deckerQuantidade:{
+  deckerQuantidade: {
     fontSize: 20,
     textAlign: 'center'
   },
-  cabecalho:{
+  cabecalho: {
     fontSize: 18,
     color: "#CED0CE",
   }

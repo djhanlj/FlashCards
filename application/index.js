@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet, View } from 'react-native';
 import {Route, RouteStatusBar} from './config/route'
-import { purple, lightPurp } from '@utils/colors'
+import { lightPurp } from '@utils/colors'
 
 class App extends Component {
   render() {

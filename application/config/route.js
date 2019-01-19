@@ -3,6 +3,7 @@ import { StatusBar, View } from 'react-native'
 import { createMaterialTopTabNavigator, createStackNavigator, createAppContainer  } from 'react-navigation'
 import { Constants } from 'expo'
 import Deck from '@screens/Deck'
+import DeckDetail from '@screens/DeckDetail'
 import NewDeck from '@screens/NewDeck'
 import { purple, white, blue, lightPurp } from '@utils/colors'
 
@@ -47,6 +48,16 @@ const Tabs = createMaterialTopTabNavigator({
         header: null,
       },
     },
+    DeckDetail: {
+      screen: DeckDetail,
+      navigationOptions: {
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: blue,
+        },
+      },
+    },
+
 
   })
 
