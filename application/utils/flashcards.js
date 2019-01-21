@@ -4,13 +4,16 @@ export const FLASHCARDS_STORAGE_KEY = 'flashcards'
 
 
 export function estruturaDeck(nameDeck) {
-    const key = this.removeSpaces(nameDeck)
-    return {
+    const key = removeSpaces(nameDeck)
+    const objeto = {
         [key]: {
             title: nameDeck,
             questions: []
         }
     }
+
+    console.log(objeto)
+    return objeto
 }
 
 /*export function get(nameDeck) {

@@ -12,7 +12,9 @@ module.exports = function(api) {
             "@components"  : "./application/components",
             "@config"      : "./application/config",
             "@screens"     : "./application/screens",
-            "@utils"       : "./application/utils"
+            "@utils"       : "./application/utils",
+            "@actions"     : "./application/actions",
+            "@reducers"    : "./application/reducers",
           }
         }
       ]

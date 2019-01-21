@@ -1,20 +1,7 @@
 import React from 'react'
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
 import getObjetos from '../utils/objeto'
-
-function ItemView({ title, questions }, navigation) {
-  return (
-    <TouchableOpacity style={styles.listDecker}
-      onPress={() => navigation.navigate('DeckDetail')}>
-
-      <Text style={[styles.item, { marginTop: 25 }]}>{title}</Text>
-      <View style={styles.item}>
-        <Text style={styles.deckerQuantidade}>{questions.length}</Text>
-        <Text style={styles.deckerQuantidade}>cards</Text>
-      </View>
-    </TouchableOpacity>
-  )
-}
+import { getDeckerAsync, clearAsyncStorage } from '@utils/api'
 
 export default class Deck extends React.Component {
 
@@ -22,18 +9,20 @@ export default class Deck extends React.Component {
     decks: []
   }
   componentDidMount() {
-    const objeto = getObjetos();
-    const decks = Object.keys(objeto).map(i => objeto[i])
-    this.setState({ decks })
-
-    
+    getDeckerAsync().then( objeto =>{
+      const decks = Object.keys(objeto).map(i => objeto[i])
+      this.setState({ decks })
+    })
+    //const objeto = getObjetos();
+    //const decks = Object.keys(objeto).map(i => objeto[i])
+    //this.setState({ decks })
   }
 
   renderItem = ({ item }) => {
     return (
       <TouchableOpacity style={styles.listDecker}
         onPress={() => this.props.navigation.navigate('DeckDetail')}>
-        <Text style={[styles.item, { marginTop: 25 }]}>{item.title}</Text>
+        <Text style={[styles.item, { marginTop: 25 }]}>{item.title ? item.title : null }</Text>
         <View style={styles.item}>
           <Text style={styles.deckerQuantidade}>{item.questions.length}</Text>
           <Text style={styles.deckerQuantidade}>cards</Text>
