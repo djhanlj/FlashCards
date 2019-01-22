@@ -1,15 +1,27 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import {Route, RouteStatusBar} from './config/route'
+import { Route, RouteStatusBar } from './config/route'
 import { lightPurp } from '@utils/colors'
+import {createStore, applyMiddleware, compose} from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import reducer from './reducers'
+
 
 class App extends Component {
   render() {
+
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+    const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
+
+
     return (
-      <View style={styles.container}>
-        <RouteStatusBar backgroundColor={lightPurp} barStyle="light-content" />
-        <Route/>
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <RouteStatusBar backgroundColor={lightPurp} barStyle="light-content" />
+          <Route />
+        </View>
+      </Provider>
     );
   }
 }

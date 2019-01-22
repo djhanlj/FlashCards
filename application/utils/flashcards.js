@@ -12,7 +12,6 @@ export function estruturaDeck(nameDeck) {
         }
     }
 
-    console.log(objeto)
     return objeto
 }
 

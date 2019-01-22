@@ -1,11 +1,14 @@
 import React from 'react'
 import { View, Text, TextInput, KeyboardAvoidingView, StyleSheet } from 'react-native'
 import { FormLabel, FormInput, FormValidationMessage, Button  } from 'react-native-elements'
-import { grey, blue } from '@utils/colors'
+import {  blue } from '@utils/colors'
 import { saveDecker } from '@utils/api'
+import { connect } from 'react-redux'
+import { addDecker } from '@actions'
+import { estruturaDeck } from '@utils/flashcards'
 
 
-export default class NewDeck extends React.Component {
+class NewDeck extends React.Component {
 
   state = {
     nomeDecker: ''
@@ -18,7 +21,15 @@ export default class NewDeck extends React.Component {
 
   submit = () => {
       const { nomeDecker } = this.state
+      const { addDecker } = this.props
       saveDecker(nomeDecker)
+
+      /**
+       * adicionar no state
+       */
+      addDecker(estruturaDeck(nomeDecker))
+
+
       this.toDetail()
   }
 
@@ -61,3 +72,12 @@ const styles = StyleSheet.create({
  
 
 }) 
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addDecker: () => dispatch(addDecker()),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(NewDeck);

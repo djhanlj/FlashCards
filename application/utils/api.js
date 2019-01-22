@@ -18,6 +18,11 @@ export function saveDecker(key) {
 })*/
 //}
 
+export function fetchDeckers() {
+    return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
+        
+}
+
 export async function getDeckerAsync() {
     try {
         const value = await AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY);

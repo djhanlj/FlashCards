@@ -1,28 +1,32 @@
 import React from 'react'
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
-import getObjetos from '../utils/objeto'
-import { getDeckerAsync, clearAsyncStorage } from '@utils/api'
+import { connect } from 'react-redux'
+import { handleInitialData, resetDecker } from '@actions'
+import { clearAsyncStorage } from '@utils/api'
+import { Button  } from 'react-native-elements'
 
-export default class Deck extends React.Component {
 
-  state = {
-    decks: []
-  }
+
+class Deck extends React.Component {
+
   componentDidMount() {
-    getDeckerAsync().then( objeto =>{
-      const decks = Object.keys(objeto).map(i => objeto[i])
-      this.setState({ decks })
-    })
-    //const objeto = getObjetos();
-    //const decks = Object.keys(objeto).map(i => objeto[i])
-    //this.setState({ decks })
+    const { loadData } = this.props
+    this.props.navigation.addListener('willFocus', (playload)=>{
+      loadData()
+    });
   }
 
+  reset = () => {
+    const { resetDecker } = this.props
+    clearAsyncStorage()
+    resetDecker()
+  }
+  
   renderItem = ({ item }) => {
     return (
       <TouchableOpacity style={styles.listDecker}
-        onPress={() => this.props.navigation.navigate('DeckDetail')}>
-        <Text style={[styles.item, { marginTop: 25 }]}>{item.title ? item.title : null }</Text>
+        onPress={() => this.props.navigation.navigate('DeckDetail', {deck: item.title})}>
+        <Text style={[styles.item, { marginTop: 25 }]}>{item.title ? item.title : null}</Text>
         <View style={styles.item}>
           <Text style={styles.deckerQuantidade}>{item.questions.length}</Text>
           <Text style={styles.deckerQuantidade}>cards</Text>
@@ -31,8 +35,6 @@ export default class Deck extends React.Component {
     )
   }
 
-
-
   renderSeparator = () => {
     return (
       <View style={styles.line} />
@@ -40,25 +42,24 @@ export default class Deck extends React.Component {
   };
 
   render() {
-    const { decks } = this.state
-    console.log(decks)
+    const { decks } = this.props
     return (
       <View style={styles.container}>
         <Text style={styles.cabecalho}>List Decks</Text>
+        <Button large title='Remove Deck'  onPress={this.reset} />
         <View style={styles.line} />
-        {decks.length > 0 
-        ? <FlatList
-        data={decks}
-        renderItem={this.renderItem}
-        ItemSeparatorComponent={this.renderSeparator}
-        keyExtractor={item => item.title}
-      /> 
-        : 
-        <View style={styles.container}>
-        <Text>Não há decks cadastrados!</Text>
-      </View>
-    }
-        
+        {decks.length > 0
+          ? <FlatList
+            data={decks}
+            renderItem={this.renderItem}
+            ItemSeparatorComponent={this.renderSeparator}
+            keyExtractor={item => item.title}
+          />
+          :
+          <View style={styles.container}>
+            <Text>Não há decks cadastrados!</Text>
+          </View>
+        }
       </View>
     );
   }
@@ -97,4 +98,22 @@ const styles = StyleSheet.create({
     color: "#CED0CE",
   }
 
-}) 
+})
+
+function mapStateToProps( decks ) {
+
+  const decksArray = Object.keys(decks).map(i => decks[i])
+
+  return {
+    decks:decksArray
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    loadData: () => dispatch(handleInitialData()),
+    resetDecker: () => dispatch(resetDecker()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Deck);

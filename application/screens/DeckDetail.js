@@ -12,7 +12,6 @@ export default class DeckDetail extends React.Component {
 
   componentDidMount() {
     const { deck } = this.props.navigation.state.params
-    console.log(deck)
   }
 
   render() {
