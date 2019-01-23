@@ -8,20 +8,6 @@ export function saveDecker(key) {
         ));
 }
 
-//export function getDecker() {
-//return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY);
-/*.then(res => res.json())
-    .then(data => data.data) */
-/*.then((value) => {
-    console.log("value " + value)
-    return value
-})*/
-//}
-
-export function fetchDeckers() {
-    return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
-        
-}
 
 export async function getDeckerAsync() {
     try {

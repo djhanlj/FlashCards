@@ -1,7 +1,6 @@
 import { RECEIVE_DECKER, ADD_DECKER, RESET_DECKER } from '../actions'
 
 function decks(state = {}, action) {
-
     switch (action.type) {
         case RECEIVE_DECKER:
             return {

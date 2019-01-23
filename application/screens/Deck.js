@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { handleInitialData, resetDecker } from '@actions'
 import { clearAsyncStorage } from '@utils/api'
 import { Button  } from 'react-native-elements'
+import {  red } from '@utils/colors'
 
 
 
@@ -46,7 +47,7 @@ class Deck extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.cabecalho}>List Decks</Text>
-        <Button large title='Remove Deck'  onPress={this.reset} />
+        <Button backgroundColor={red} title='Remove os Decks'  onPress={this.reset} />
         <View style={styles.line} />
         {decks.length > 0
           ? <FlatList
@@ -103,7 +104,6 @@ const styles = StyleSheet.create({
 function mapStateToProps( decks ) {
 
   const decksArray = Object.keys(decks).map(i => decks[i])
-
   return {
     decks:decksArray
   }

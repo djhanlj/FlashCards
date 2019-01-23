@@ -1,7 +1,10 @@
 import React from 'react'
-import { View, Text, FlatList, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
+import { Button } from 'react-native-elements'
+import { dodgerblue, seagreen } from '@utils/colors'
 
-export default class DeckDetail extends React.Component {
+class DeckDetail extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     const { deck } = navigation.state.params
@@ -10,14 +13,28 @@ export default class DeckDetail extends React.Component {
     }
   }
 
-  componentDidMount() {
-    const { deck } = this.props.navigation.state.params
-  }
 
   render() {
+    const { deck } = this.props
+    const { title, questions } = deck
     return (
       <View style={styles.container}>
-        <Text>Deck Detail- {this.props.navigation.state.params.deck}</Text>
+        {deck ?
+          <View>
+            <View style={styles.text}>
+              <Text>Deck { title  } </Text>
+              <Text>{ questions.length > 0 ? questions.length : 0 } Cartões </Text>
+            </View>
+            <View>
+              <View style={{ marginTop: 15 }}>
+                <Button large backgroundColor={seagreen} title='Iniciar Quiz' />
+              </View>
+              <View style={{ marginTop: 15 }}>
+                <Button large backgroundColor={dodgerblue} title='Add Card' />
+              </View>
+            </View>
+          </View>
+          : null}
       </View>
     );
   }
@@ -25,10 +42,25 @@ export default class DeckDetail extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 25,
-    marginLeft: 10,
-    marginRight: 10,
+    flex: 1,
+    justifyContent: 'center',
+
   },
+  text: {
+    alignItems: 'center',
+
+  }
+
+})
+
+function mapStateToProps(decks, { navigation }) {
+  const { deck } = navigation.state.params
+  const decksArray = Object.keys(decks).map(i => decks[i])
+
+  return {
+    deck: decksArray.find(d => d.title === deck)
+  }
+}
 
 
-}) 
+export default connect(mapStateToProps)(DeckDetail);

@@ -12,7 +12,6 @@ export function handleInitialData() {
     }
 }
 
-
 export function receiveDecker(decks) {
     return {
         type: RECEIVE_DECKER,
