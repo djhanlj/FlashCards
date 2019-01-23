@@ -13,8 +13,8 @@ class DeckDetail extends React.Component {
     }
   }
 
-
   render() {
+    const { navigation } = this.props
     const { deck } = this.props
     const { title, questions } = deck
     return (
@@ -30,7 +30,9 @@ class DeckDetail extends React.Component {
                 <Button large backgroundColor={seagreen} title='Iniciar Quiz' />
               </View>
               <View style={{ marginTop: 15 }}>
-                <Button large backgroundColor={dodgerblue} title='Add Card' />
+                <Button large backgroundColor={dodgerblue} title='Add Card'
+                 onPress={() => navigation.navigate('NewCard', { deck })}
+                />
               </View>
             </View>
           </View>
@@ -44,13 +46,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-
   },
   text: {
     alignItems: 'center',
-
   }
-
 })
 
 function mapStateToProps(decks, { navigation }) {
@@ -61,6 +60,5 @@ function mapStateToProps(decks, { navigation }) {
     deck: decksArray.find(d => d.title === deck)
   }
 }
-
 
 export default connect(mapStateToProps)(DeckDetail);

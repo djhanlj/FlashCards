@@ -5,6 +5,7 @@ import { Constants } from 'expo'
 import Deck from '@screens/Deck'
 import DeckDetail from '@screens/DeckDetail'
 import NewDeck from '@screens/NewDeck'
+import NewCard from '@screens/NewCard'
 import { purple, white, blue, lightPurp } from '@utils/colors'
 
 
@@ -50,6 +51,15 @@ const Tabs = createMaterialTopTabNavigator({
     },
     DeckDetail: {
       screen: DeckDetail,
+      navigationOptions: {
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: blue,
+        },
+      },
+    },
+    NewCard: {
+      screen: NewCard,
       navigationOptions: {
         headerTintColor: white,
         headerStyle: {
