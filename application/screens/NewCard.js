@@ -1,10 +1,11 @@
 import React from 'react'
-import { Text, KeyboardAvoidingView, StyleSheet } from 'react-native'
+import { Text, View, KeyboardAvoidingView, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
-import { Button } from 'react-native-elements'
-import { blue } from '@utils/colors'
+import { TextInput, Button } from 'react-native-paper'
 import { connect } from 'react-redux'
-import { addDecker } from '@actions'
+import { updateDeckerCards } from '@actions'
+import { estruturaQuestao, removeSpaces } from '@utils/flashcards'
+import { saveDecker } from '@utils/api'
 
 class NewDeck extends React.Component {
 	static navigationOptions = () => ({
@@ -18,12 +19,23 @@ class NewDeck extends React.Component {
 
 	handleTextChange = nomeDecker => this.setState({ nomeDecker })
 
-	submit = () => {}
+	submit = () => {
+		const { questao, resposta } = this.state
+		const { deck } = this.props
+		const questions = estruturaQuestao(questao, resposta)
+		const key = removeSpaces(deck.title)
 
-	toDetail = () => {
-		const { nomeDecker } = this.state
+		deck.questions = [...deck.questions, questions]
+		const deckUpdate = { [key]: deck }
+
+		saveDecker(deckUpdate)
+		updateDeckerCards(questions, removeSpaces(deck.title))
+		this.toDetail(deck.title)
+	}
+
+	toDetail = title => {
 		const { navigation } = this.props
-		navigation.navigate('DeckDetail', { deck: nomeDecker })
+		navigation.navigate('DeckDetail', { title })
 	}
 
 	render() {
@@ -32,12 +44,29 @@ class NewDeck extends React.Component {
 				<Text style={styles.titleText}>
 					Adicione uma nova Pergunta Para o Quiz
 				</Text>
-				<Button
-					large
-					backgroundColor={blue}
-					title="Salvar Questão"
-					onPress={this.submit}
-				/>
+				<View style={styles.padding}>
+					<TextInput
+						numberOfLines={5}
+						mode="outlined"
+						label="Questao"
+						value={this.state.questao}
+						onChangeText={questao => this.setState({ questao })}
+					/>
+				</View>
+				<View style={styles.padding}>
+					<TextInput
+						numberOfLines={3}
+						mode="outlined"
+						label="Resposta"
+						value={this.state.resposta}
+						onChangeText={resposta => this.setState({ resposta })}
+					/>
+				</View>
+				<View style={styles.padding}>
+					<Button icon="save" mode="contained" onPress={this.submit}>
+						Salvar Questão
+					</Button>
+				</View>
 			</KeyboardAvoidingView>
 		)
 	}
@@ -45,7 +74,10 @@ class NewDeck extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
+		marginTop: 25,
+		marginLeft: 10,
+		marginRight: 10
 	},
 
 	titleText: {
@@ -53,22 +85,31 @@ const styles = StyleSheet.create({
 		textAlignVertical: 'center',
 		textAlign: 'center'
 	},
-	input: {
-		marginTop: 50
+	padding: {
+		marginTop: 20
 	}
 })
 
+function mapStateToProps(decks, { navigation }) {
+	const { deck } = navigation.state.params
+	return {
+		deck
+	}
+}
+
 function mapDispatchToProps(dispatch) {
 	return {
-		addDecker: deck => dispatch(addDecker(deck))
+		updateDeckerCards: (deck, title) =>
+			dispatch(updateDeckerCards(deck, title))
 	}
 }
 
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(NewDeck)
 
 NewDeck.propTypes = {
-	navigation: PropTypes.object.isRequired
+	navigation: PropTypes.object.isRequired,
+	deck: PropTypes.object.isRequired
 }

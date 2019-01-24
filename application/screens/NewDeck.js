@@ -6,7 +6,7 @@ import { blue } from '@utils/colors'
 import { saveDecker } from '@utils/api'
 import { connect } from 'react-redux'
 import { addDecker } from '@actions'
-import { estruturaDeck } from '@utils/flashcards'
+import { estruturaDeck, removeSpaces } from '@utils/flashcards'
 
 class NewDeck extends React.Component {
 	state = {
@@ -18,19 +18,20 @@ class NewDeck extends React.Component {
 	submit = () => {
 		const { nomeDecker } = this.state
 		const { addDecker } = this.props
-		saveDecker(nomeDecker)
-		/**
-		 * adicionar no state
-		 */
-		addDecker(estruturaDeck(nomeDecker))
+		const key = removeSpaces(nomeDecker)
+		const corpo = estruturaDeck(nomeDecker)
+
+		const newDeck = { [key]: corpo }
+		saveDecker(newDeck)
+
+		addDecker(newDeck)
 		this.setState({ nomeDecker: '' })
-		this.toDetail()
+		this.toDetail(newDeck)
 	}
 
-	toDetail = () => {
-		const { nomeDecker } = this.state
+	toDetail = deck => {
 		const { navigation } = this.props
-		navigation.navigate('DeckDetail', { deck: nomeDecker })
+		navigation.navigate('DeckDetail', { deck })
 	}
 
 	render() {

@@ -33,7 +33,7 @@ class Deck extends React.Component {
 				style={styles.listDecker}
 				onPress={() =>
 					this.props.navigation.navigate('DeckDetail', {
-						deck: item.title
+						title: item.title
 					})
 				}
 			>

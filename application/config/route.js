@@ -91,5 +91,5 @@ export const RouteStatusBar = ({ backgroundColor, ...props }) => {
 export const Route = createAppContainer(MainNavigator)
 
 RouteStatusBar.propTypes = {
-	backgroundColor: PropTypes.object.isRequired
+	backgroundColor: PropTypes.string.isRequired
 }

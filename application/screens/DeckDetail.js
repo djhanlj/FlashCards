@@ -7,9 +7,9 @@ import { dodgerblue, seagreen } from '@utils/colors'
 
 class DeckDetail extends React.Component {
 	static navigationOptions = ({ navigation }) => {
-		const { deck } = navigation.state.params
+		const { title } = navigation.state.params
 		return {
-			title: deck
+			title: title
 		}
 	}
 
@@ -24,8 +24,10 @@ class DeckDetail extends React.Component {
 						<View style={styles.text}>
 							<Text>Deck {title} </Text>
 							<Text>
-								{questions.length > 0 ? questions.length : 0}{' '}
-								Cartões
+								{questions && questions.length > 0
+									? questions.length
+									: 0}{' '}
+								Cartões{' '}
 							</Text>
 						</View>
 						<View>
@@ -65,11 +67,11 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(decks, { navigation }) {
-	const { deck } = navigation.state.params
+	const { title } = navigation.state.params
 	const decksArray = Object.keys(decks).map(i => decks[i])
 
 	return {
-		deck: decksArray.find(d => d.title === deck)
+		deck: decksArray.find(d => d.title === title)
 	}
 }
 

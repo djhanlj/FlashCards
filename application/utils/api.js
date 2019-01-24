@@ -1,10 +1,10 @@
 import { AsyncStorage } from 'react-native'
-import { FLASHCARDS_STORAGE_KEY, estruturaDeck } from './flashcards'
+import { FLASHCARDS_STORAGE_KEY } from './flashcards'
 
-export function saveDecker(key) {
+export function saveDecker(decker) {
 	return AsyncStorage.mergeItem(
 		FLASHCARDS_STORAGE_KEY,
-		JSON.stringify(estruturaDeck(key))
+		JSON.stringify(decker)
 	)
 }
 

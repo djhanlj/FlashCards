@@ -1,4 +1,9 @@
-import { RECEIVE_DECKER, ADD_DECKER, RESET_DECKER } from '../actions'
+import {
+	RECEIVE_DECKER,
+	ADD_DECKER,
+	RESET_DECKER,
+	UPDATE_DECKER_CARDS
+} from '../actions'
 
 function decks(state = {}, action) {
 	switch (action.type) {
@@ -14,6 +19,15 @@ function decks(state = {}, action) {
 		}
 	case RESET_DECKER:
 		return {}
+
+	case UPDATE_DECKER_CARDS:
+		return {
+			...state,
+			[action.id]: {
+				...state[action.id].questions,
+				questions: [...state.questions, action.questions]
+			}
+		}
 
 	default:
 		return state
