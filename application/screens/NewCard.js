@@ -70,5 +70,5 @@ export default connect(
 )(NewDeck)
 
 NewDeck.propTypes = {
-	navigation: PropTypes.func.isRequired
+	navigation: PropTypes.object.isRequired
 }

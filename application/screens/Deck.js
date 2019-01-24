@@ -134,7 +134,7 @@ export default connect(
 
 Deck.propTypes = {
 	loadData: PropTypes.func.isRequired,
-	navigation: PropTypes.func.isRequired,
+	navigation: PropTypes.object.isRequired,
 	resetDecker: PropTypes.func.isRequired,
 	decks: PropTypes.array.isRequired
 }

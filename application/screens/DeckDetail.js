@@ -25,7 +25,7 @@ class DeckDetail extends React.Component {
 							<Text>Deck {title} </Text>
 							<Text>
 								{questions.length > 0 ? questions.length : 0}{' '}
-								Cartões{' '}
+								Cartões
 							</Text>
 						</View>
 						<View>
@@ -76,6 +76,6 @@ function mapStateToProps(decks, { navigation }) {
 export default connect(mapStateToProps)(DeckDetail)
 
 DeckDetail.propTypes = {
-	navigation: PropTypes.func.isRequired,
+	navigation: PropTypes.object.isRequired,
 	deck: PropTypes.object.isRequired
 }
