@@ -1,5 +1,4 @@
-export const FLASHCARDS_STORAGE_KEY = 'flashcards'
-
+export const FLASHCARDS_STORAGE_KEY = 'flashcards';
 
 export function estruturaDeck(nameDeck) {
     const key = removeSpaces(nameDeck)
