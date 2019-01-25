@@ -26,12 +26,12 @@ class NewDeck extends React.Component {
 
 		addDecker(newDeck)
 		this.setState({ nomeDecker: '' })
-		this.toDetail(newDeck)
+		this.toDetail(nomeDecker)
 	}
 
-	toDetail = deck => {
+	toDetail = title => {
 		const { navigation } = this.props
-		navigation.navigate('DeckDetail', { deck })
+		navigation.navigate('DeckDetail', { title })
 	}
 
 	render() {

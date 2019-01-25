@@ -9,7 +9,7 @@ class DeckDetail extends React.Component {
 	static navigationOptions = ({ navigation }) => {
 		const { title } = navigation.state.params
 		return {
-			title: title
+			title
 		}
 	}
 
