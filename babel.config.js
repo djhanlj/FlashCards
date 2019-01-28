@@ -9,7 +9,7 @@ module.exports = function(api) {
 					cwd: 'babelrc',
 					alias: {
 						'@application': './application',
-						'@components': './application/components',
+						'@component': './application/component',
 						'@config': './application/config',
 						'@screens': './application/screens',
 						'@utils': './application/utils',

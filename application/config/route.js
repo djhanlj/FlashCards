@@ -11,6 +11,7 @@ import Deck from '@screens/Deck'
 import DeckDetail from '@screens/DeckDetail'
 import NewDeck from '@screens/NewDeck'
 import NewCard from '@screens/NewCard'
+import Quiz from '@screens/Quiz'
 import { white, blue } from '@utils/colors'
 
 const Tabs = createMaterialTopTabNavigator(
@@ -67,6 +68,15 @@ const MainNavigator = createStackNavigator({
 	},
 	NewCard: {
 		screen: NewCard,
+		navigationOptions: {
+			headerTintColor: white,
+			headerStyle: {
+				backgroundColor: blue
+			}
+		}
+	},
+	Quiz: {
+		screen: Quiz,
 		navigationOptions: {
 			headerTintColor: white,
 			headerStyle: {

@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Button } from 'react-native-elements'
 import { dodgerblue, seagreen } from '@utils/colors'
 
-class DeckDetail extends React.Component {
+class DeckDetail extends Component {
 	static navigationOptions = ({ navigation }) => {
 		const { title } = navigation.state.params
 		return {
@@ -36,6 +36,9 @@ class DeckDetail extends React.Component {
 									large
 									backgroundColor={seagreen}
 									title="Iniciar Quiz"
+									onPress={() =>
+										navigation.navigate('Quiz', { deck })
+									}
 								/>
 							</View>
 							<View style={{ marginTop: 15 }}>
