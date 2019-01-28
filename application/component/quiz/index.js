@@ -69,7 +69,7 @@ export default class Questao extends Component {
 		}
 		const { questao } = this.props
 		return (
-			<View style={styles.container}>
+			<View>
 				<Animated.View
 					style={[
 						styles.card,
@@ -79,6 +79,8 @@ export default class Questao extends Component {
 				>
 					<View style={styles.positionText}>
 						<Text style={styles.text}>{questao.question}</Text>
+					</View>
+					<View style={styles.positionText}>
 						<TouchableOpacity onPress={() => this.flipCard()}>
 							<Text>Answer!</Text>
 						</TouchableOpacity>
@@ -95,14 +97,21 @@ export default class Questao extends Component {
 				>
 					<View style={styles.positionText}>
 						<Text style={styles.text}>{questao.answer}</Text>
+					</View>
+					<View style={styles.positionText}>
 						<TouchableOpacity onPress={() => this.flipCard()}>
 							<Text>Question!</Text>
 						</TouchableOpacity>
 					</View>
+
+					<View style={styles.positionText}>
+						<TouchableOpacity
+							onPress={() => this.handleButtonCorrect()}
+						>
+							<Text style={styles.testeText}>Teste!</Text>
+						</TouchableOpacity>
+					</View>
 				</Animated.View>
-				<TouchableOpacity onPress={() => this.handleButtonCorrect()}>
-					<Text style={styles.testeText}>Teste!</Text>
-				</TouchableOpacity>
 			</View>
 		)
 	}
@@ -115,7 +124,6 @@ Questao.propTypes = {
 
 var styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		backgroundColor: white
 	},
 	card: {
@@ -124,7 +132,7 @@ var styles = StyleSheet.create({
 		borderColor: gray,
 		backgroundColor: white,
 		width: 300,
-		height: 400,
+		height: 300,
 		padding: 10
 	},
 	flipCardBack: {
