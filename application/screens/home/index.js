@@ -13,7 +13,7 @@ import { clearAsyncStorage } from '@utils/api'
 import { Button } from 'react-native-elements'
 import { red } from '@utils/colors'
 
-class Deck extends React.Component {
+class Home extends React.Component {
 	componentDidMount() {
 		const { loadData, navigation } = this.props
 		navigation.addListener('willFocus', () => {
@@ -59,11 +59,6 @@ class Deck extends React.Component {
 		return (
 			<View style={styles.container}>
 				<Text style={styles.cabecalho}>List Decks</Text>
-				<Button
-					backgroundColor={red}
-					title="Remove os Decks"
-					onPress={this.reset}
-				/>
 				<View style={styles.line} />
 				{decks.length > 0 ? (
 					<FlatList
@@ -82,8 +77,35 @@ class Deck extends React.Component {
 	}
 }
 
+function mapStateToProps(decks) {
+	const decksArray = Object.keys(decks).map(i => decks[i])
+	return {
+		decks: decksArray
+	}
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		loadData: () => dispatch(handleInitialData()),
+		resetDecker: () => dispatch(resetDecker())
+	}
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Home)
+
+Home.propTypes = {
+	loadData: PropTypes.func.isRequired,
+	navigation: PropTypes.object.isRequired,
+	resetDecker: PropTypes.func.isRequired,
+	decks: PropTypes.array.isRequired
+}
+
 const styles = StyleSheet.create({
 	container: {
+		flex: 1,
 		marginTop: 25,
 		marginLeft: 10,
 		marginRight: 10
@@ -112,29 +134,3 @@ const styles = StyleSheet.create({
 		color: '#CED0CE'
 	}
 })
-
-function mapStateToProps(decks) {
-	const decksArray = Object.keys(decks).map(i => decks[i])
-	return {
-		decks: decksArray
-	}
-}
-
-function mapDispatchToProps(dispatch) {
-	return {
-		loadData: () => dispatch(handleInitialData()),
-		resetDecker: () => dispatch(resetDecker())
-	}
-}
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Deck)
-
-Deck.propTypes = {
-	loadData: PropTypes.func.isRequired,
-	navigation: PropTypes.object.isRequired,
-	resetDecker: PropTypes.func.isRequired,
-	decks: PropTypes.array.isRequired
-}

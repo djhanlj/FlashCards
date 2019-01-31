@@ -7,19 +7,19 @@ import {
 } from 'react-navigation'
 import PropTypes from 'prop-types'
 import { Constants } from 'expo'
-import Deck from '@screens/Deck'
-import DeckDetail from '@screens/DeckDetail'
-import NewDeck from '@screens/NewDeck'
-import NewCard from '@screens/NewCard'
-import Quiz from '@screens/Quiz'
+import Home from '@screens/home'
+import NewDeck from '@screens/deck'
+import DeckDetail from '@screens/deck/deckDetail'
+import NewCard from '@screens/card'
+import Quiz from '@screens/quiz'
 import { white, blue } from '@utils/colors'
 
 const Tabs = createMaterialTopTabNavigator(
 	{
 		Deck: {
-			screen: Deck,
+			screen: Home,
 			navigationOptions: {
-				tabBarLabel: 'Deck'
+				tabBarLabel: 'List Deck'
 			}
 		},
 		NewDeck: {

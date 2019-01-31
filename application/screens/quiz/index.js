@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Swiper from 'react-native-deck-swiper'
-import Questao from '@component/quiz'
+import FlipCard from '@component/flipCard'
 import { white } from '@utils/colors'
 
 class Quiz extends Component {
@@ -35,7 +35,7 @@ class Quiz extends Component {
 					}}
 					cards={questions}
 					renderCard={questao => (
-						<Questao
+						<FlipCard
 							questao={questao}
 							handleResposta={this.handleResposta}
 						/>

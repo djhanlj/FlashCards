@@ -1,5 +1,11 @@
 import React from 'react'
-import { Text, View, KeyboardAvoidingView, StyleSheet } from 'react-native'
+import {
+	Text,
+	View,
+	KeyboardAvoidingView,
+	StyleSheet,
+	ScrollView
+} from 'react-native'
 import PropTypes from 'prop-types'
 import { TextInput, Button } from 'react-native-paper'
 import { connect } from 'react-redux'
@@ -40,34 +46,46 @@ class NewDeck extends React.Component {
 
 	render() {
 		return (
-			<KeyboardAvoidingView behavior="padding" style={styles.container}>
-				<Text style={styles.titleText}>
-					Adicione uma nova Pergunta Para o Quiz
-				</Text>
-				<View style={styles.padding}>
-					<TextInput
-						numberOfLines={5}
-						mode="outlined"
-						label="Questao"
-						value={this.state.questao}
-						onChangeText={questao => this.setState({ questao })}
-					/>
-				</View>
-				<View style={styles.padding}>
-					<TextInput
-						numberOfLines={3}
-						mode="outlined"
-						label="Resposta"
-						value={this.state.resposta}
-						onChangeText={resposta => this.setState({ resposta })}
-					/>
-				</View>
-				<View style={styles.padding}>
-					<Button icon="save" mode="contained" onPress={this.submit}>
-						Salvar Questão
-					</Button>
-				</View>
-			</KeyboardAvoidingView>
+			<ScrollView style={styles.container}>
+				<KeyboardAvoidingView
+					keyboardVerticalOffset={300}
+					behavior="padding"
+					enabled
+				>
+					<Text style={styles.titleText}>
+						Adicione uma nova Pergunta Para o Quiz
+					</Text>
+					<View style={styles.padding}>
+						<TextInput
+							numberOfLines={5}
+							mode="outlined"
+							label="Questao"
+							value={this.state.questao}
+							onChangeText={questao => this.setState({ questao })}
+						/>
+					</View>
+					<View style={styles.padding}>
+						<TextInput
+							numberOfLines={3}
+							mode="outlined"
+							label="Resposta"
+							value={this.state.resposta}
+							onChangeText={resposta =>
+								this.setState({ resposta })
+							}
+						/>
+					</View>
+					<View style={styles.padding}>
+						<Button
+							icon="save"
+							mode="contained"
+							onPress={this.submit}
+						>
+							Salvar Questão
+						</Button>
+					</View>
+				</KeyboardAvoidingView>
+			</ScrollView>
 		)
 	}
 }

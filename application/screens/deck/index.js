@@ -1,12 +1,13 @@
 import React from 'react'
 import { View, Text, KeyboardAvoidingView, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
-import { FormInput, Button } from 'react-native-elements'
+import { FormInput } from 'react-native-elements'
 import { blue } from '@utils/colors'
 import { saveDecker } from '@utils/api'
 import { connect } from 'react-redux'
 import { addDecker } from '@actions'
 import { estruturaDeck, removeSpaces } from '@utils/flashcards'
+import { Button } from 'react-native-paper'
 
 class NewDeck extends React.Component {
 	state = {
@@ -48,12 +49,16 @@ class NewDeck extends React.Component {
 						underlineColorAndroid={blue}
 					/>
 				</View>
-				<Button
-					large
-					backgroundColor={blue}
-					title="Create Deck"
-					onPress={this.submit}
-				/>
+				<View style={styles.alignButton}>
+					<Button
+						icon="add-box"
+						mode="contained"
+						style={styles.colorButtonSave}
+						onPress={this.submit}
+					>
+						Criar Deck
+					</Button>
+				</View>
 			</KeyboardAvoidingView>
 		)
 	}
@@ -62,15 +67,24 @@ class NewDeck extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		marginTop: 30
+		marginTop: 30,
+		marginLeft: 10,
+		marginRight: 10
 	},
 	titleText: {
-		fontSize: 30,
+		fontSize: 25,
 		textAlignVertical: 'center',
 		textAlign: 'center'
 	},
 	input: {
 		marginTop: 50
+	},
+	colorButtonSave: {
+		backgroundColor: blue
+	},
+
+	alignButton: {
+		marginTop: 15
 	}
 })
 
