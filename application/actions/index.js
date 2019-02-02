@@ -1,5 +1,5 @@
 import * as API from '@api/api'
-import { formatDeck } from '../utils/flashcards'
+import { formatDeck, formatCardToDeck } from '../utils/flashcards'
 
 export const RECEIVE_DECKER = 'RECEIVE_DECKER'
 export const ADD_DECKER = 'ADD_DECKER'
@@ -34,10 +34,10 @@ export function resetDecker() {
 	}
 }
 
-export function updateDeckerCards(questions, title) {
+export function updateDeckerCards(title, questions) {
 	return {
 		type: UPDATE_DECKER_CARDS,
-		questions,
-		id: title
+		id: title,
+		questions
 	}
 }

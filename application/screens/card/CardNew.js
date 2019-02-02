@@ -1,21 +1,15 @@
 import React from 'react'
-import {
-	Text,
-	View,
-	KeyboardAvoidingView,
-	StyleSheet,
-	ScrollView
-} from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, ScrollView } from 'react-native'
 import PropTypes from 'prop-types'
-import { TextInput, Button } from 'react-native-paper'
 import { connect } from 'react-redux'
 import { updateDeckerCards } from '@actions'
+import CardForm from '@component/card/CardForm'
+import { addCardToDeck } from '@api/api'
 import { estruturaQuestao, removeSpaces } from '@utils/flashcards'
-import { saveDecker } from '@api/api'
 
 class CardNew extends React.Component {
 	static navigationOptions = () => ({
-		title: 'Add Cartão'
+		title: 'Add Card'
 	})
 
 	state = {
@@ -23,28 +17,44 @@ class CardNew extends React.Component {
 		resposta: ''
 	}
 
-	handleTextChange = nomeDecker => this.setState({ nomeDecker })
+	handleTextChange = name => {
+		return text => {
+			this.setState({ [name]: text })
+		}
+	}
 
 	submit = () => {
 		const { questao, resposta } = this.state
 		const { deck } = this.props
+		const titleDeck = removeSpaces(deck.title)
+
+		/**
+		 * AsyncStorage Save Card to Deck
+		 */
 		const questions = estruturaQuestao(questao, resposta)
-		const key = removeSpaces(deck.title)
-
 		deck.questions = [...deck.questions, questions]
-		const deckUpdate = { [key]: deck }
+		addCardToDeck(titleDeck, deck)
 
-		saveDecker(deckUpdate)
-		updateDeckerCards(questions, removeSpaces(deck.title))
-		this.toDetail(deck.title)
+		/**
+		 * Action
+		 */
+		updateDeckerCards(titleDeck, questions)
+
+		/**
+		 * Open DeckDetail
+		 */
+		this.setState({ questao: '', resposta: '' })
+		this.openDeckDetail(deck.title)
 	}
 
-	toDetail = title => {
+	openDeckDetail = title => {
 		const { navigation } = this.props
 		navigation.navigate('DeckDetail', { title })
 	}
 
 	render() {
+		const { questao, resposta } = this.state
+
 		return (
 			<ScrollView style={styles.container}>
 				<KeyboardAvoidingView
@@ -52,38 +62,13 @@ class CardNew extends React.Component {
 					behavior="padding"
 					enabled
 				>
-					<Text style={styles.titleText}>
-						Adicione uma nova Pergunta Para o Quiz
-					</Text>
-					<View style={styles.padding}>
-						<TextInput
-							numberOfLines={5}
-							mode="outlined"
-							label="Questao"
-							value={this.state.questao}
-							onChangeText={questao => this.setState({ questao })}
-						/>
-					</View>
-					<View style={styles.padding}>
-						<TextInput
-							numberOfLines={3}
-							mode="outlined"
-							label="Resposta"
-							value={this.state.resposta}
-							onChangeText={resposta =>
-								this.setState({ resposta })
-							}
-						/>
-					</View>
-					<View style={styles.padding}>
-						<Button
-							icon="save"
-							mode="contained"
-							onPress={this.submit}
-						>
-							Save Question
-						</Button>
-					</View>
+					<CardForm
+						questao={questao}
+						resposta={resposta}
+						titleForm="Adicione uma nova Pergunta Para o Quiz"
+						handleTextChange={this.handleTextChange}
+						submit={this.submit}
+					/>
 				</KeyboardAvoidingView>
 			</ScrollView>
 		)
@@ -96,15 +81,6 @@ const styles = StyleSheet.create({
 		marginTop: 25,
 		marginLeft: 10,
 		marginRight: 10
-	},
-
-	titleText: {
-		fontSize: 16,
-		textAlignVertical: 'center',
-		textAlign: 'center'
-	},
-	padding: {
-		marginTop: 20
 	}
 })
 
@@ -117,8 +93,8 @@ function mapStateToProps(decks, { navigation }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		updateDeckerCards: (deck, title) =>
-			dispatch(updateDeckerCards(deck, title))
+		updateDeckerCards: (title, deck) =>
+			dispatch(updateDeckerCards(title, deck))
 	}
 }
 

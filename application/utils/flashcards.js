@@ -7,6 +7,12 @@ export function formatDeck(titleDecker) {
 	return deck
 }
 
+export function formatCardToDeck(titleDecker, Deck) {
+	const key = removeSpaces(titleDecker)
+	const deck = { [key]: Deck }
+	return deck
+}
+
 export function estruturaDeck(nameDeck) {
 	return {
 		title: nameDeck,

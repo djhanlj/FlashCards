@@ -22,7 +22,7 @@ class DeckNew extends React.Component {
 		 */
 		if (this.validateTitleDeck(titleDecker)) {
 			/**
-			 * AsyncStorage
+			 * AsyncStorage Save Deck
 			 */
 			saveDeckTitle(titleDecker)
 
