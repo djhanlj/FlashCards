@@ -8,10 +8,8 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { handleInitialData, resetDecker } from '@actions'
-import { clearAsyncStorage } from '@utils/api'
-import { Button } from 'react-native-elements'
-import { red } from '@utils/colors'
+import { handleInitialData } from '@actions'
+import DeckItemList from '@component/deck/DeckItemList'
 
 class Home extends React.Component {
 	componentDidMount() {
@@ -21,37 +19,15 @@ class Home extends React.Component {
 		})
 	}
 
-	reset = () => {
-		const { resetDecker } = this.props
-		clearAsyncStorage()
-		resetDecker()
-	}
-
-	renderItem = ({ item }) => {
-		return (
-			<TouchableOpacity
-				style={styles.listDecker}
-				onPress={() =>
-					this.props.navigation.navigate('DeckDetail', {
-						title: item.title
-					})
-				}
-			>
-				<Text style={[styles.item, { marginTop: 25 }]}>
-					{item.title ? item.title : null}
-				</Text>
-				<View style={styles.item}>
-					<Text style={styles.deckerQuantidade}>
-						{item.questions.length}
-					</Text>
-					<Text style={styles.deckerQuantidade}>cards</Text>
-				</View>
-			</TouchableOpacity>
-		)
-	}
-
 	renderSeparator = () => {
 		return <View style={styles.line} />
+	}
+
+	openDeckDetail = item => {
+		const { navigation } = this.props
+		navigation.navigate('DeckDetail', {
+			title: item.title
+		})
 	}
 
 	render() {
@@ -63,7 +39,13 @@ class Home extends React.Component {
 				{decks.length > 0 ? (
 					<FlatList
 						data={decks}
-						renderItem={this.renderItem}
+						renderItem={({ item }) => (
+							<TouchableOpacity
+								onPress={() => this.openDeckDetail(item)}
+							>
+								<DeckItemList item={item} />
+							</TouchableOpacity>
+						)}
 						ItemSeparatorComponent={this.renderSeparator}
 						keyExtractor={item => item.title}
 					/>
@@ -86,8 +68,7 @@ function mapStateToProps(decks) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		loadData: () => dispatch(handleInitialData()),
-		resetDecker: () => dispatch(resetDecker())
+		loadData: () => dispatch(handleInitialData())
 	}
 }
 
@@ -99,35 +80,18 @@ export default connect(
 Home.propTypes = {
 	loadData: PropTypes.func.isRequired,
 	navigation: PropTypes.object.isRequired,
-	resetDecker: PropTypes.func.isRequired,
 	decks: PropTypes.array.isRequired
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		marginTop: 25,
-		marginLeft: 10,
-		marginRight: 10
-	},
-	listDecker: {
-		flexDirection: 'row',
-		justifyContent: 'space-between'
+		marginTop: 25
 	},
 	line: {
 		height: 1,
 		width: '100%',
 		backgroundColor: '#CED0CE'
-	},
-	item: {
-		fontSize: 20,
-		marginTop: 15,
-		marginBottom: 15,
-		alignItems: 'center'
-	},
-	deckerQuantidade: {
-		fontSize: 20,
-		textAlign: 'center'
 	},
 	cabecalho: {
 		fontSize: 18,

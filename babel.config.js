@@ -10,11 +10,12 @@ module.exports = function(api) {
 					alias: {
 						'@application': './application',
 						'@component': './application/component',
-						'@config': './application/config',
 						'@screens': './application/screens',
-						'@utils': './application/utils',
 						'@actions': './application/actions',
-						'@reducers': './application/reducers'
+						'@reducers': './application/reducers',
+						'@config': './application/config',
+						'@api': './application/api',
+						'@utils': './application/utils'
 					}
 				}
 			]

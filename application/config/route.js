@@ -8,10 +8,10 @@ import {
 import PropTypes from 'prop-types'
 import { Constants } from 'expo'
 import Home from '@screens/home'
-import NewDeck from '@screens/deck'
-import DeckDetail from '@screens/deck/deckDetail'
-import NewCard from '@screens/card'
-import Quiz from '@screens/quiz'
+import DeckNew from '@screens/deck/DeckNew'
+import DeckDetail from '@screens/deck/DeckDetail'
+import CardNew from '@screens/card/CardNew'
+import Quiz from '@screens/quiz/Quiz'
 import { white, blue } from '@utils/colors'
 
 const Tabs = createMaterialTopTabNavigator(
@@ -22,8 +22,8 @@ const Tabs = createMaterialTopTabNavigator(
 				tabBarLabel: 'List Deck'
 			}
 		},
-		NewDeck: {
-			screen: NewDeck,
+		DeckNew: {
+			screen: DeckNew,
 			navigationOptions: {
 				tabBarLabel: 'New Deck'
 			}
@@ -66,8 +66,8 @@ const MainNavigator = createStackNavigator({
 			}
 		}
 	},
-	NewCard: {
-		screen: NewCard,
+	CardNew: {
+		screen: CardNew,
 		navigationOptions: {
 			headerTintColor: white,
 			headerStyle: {

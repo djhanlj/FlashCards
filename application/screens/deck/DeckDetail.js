@@ -53,7 +53,7 @@ class DeckDetail extends Component {
 									mode="contained"
 									style={styles.colorButtonNewCard}
 									onPress={() =>
-										navigation.navigate('NewCard', { deck })
+										navigation.navigate('CardNew', { deck })
 									}
 								>
 									Adicionar Cartão

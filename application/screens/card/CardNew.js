@@ -11,9 +11,9 @@ import { TextInput, Button } from 'react-native-paper'
 import { connect } from 'react-redux'
 import { updateDeckerCards } from '@actions'
 import { estruturaQuestao, removeSpaces } from '@utils/flashcards'
-import { saveDecker } from '@utils/api'
+import { saveDecker } from '@api/api'
 
-class NewDeck extends React.Component {
+class CardNew extends React.Component {
 	static navigationOptions = () => ({
 		title: 'Add Cartão'
 	})
@@ -81,7 +81,7 @@ class NewDeck extends React.Component {
 							mode="contained"
 							onPress={this.submit}
 						>
-							Salvar Questão
+							Save Question
 						</Button>
 					</View>
 				</KeyboardAvoidingView>
@@ -125,9 +125,9 @@ function mapDispatchToProps(dispatch) {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(NewDeck)
+)(CardNew)
 
-NewDeck.propTypes = {
+CardNew.propTypes = {
 	navigation: PropTypes.object.isRequired,
 	deck: PropTypes.object.isRequired
 }

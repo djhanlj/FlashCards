@@ -4,7 +4,7 @@
         "slug": "FlashCards",
         "privacy": "public",
         "sdkVersion": "31.0.0",
-        "platforms": ["android"],
+        "platforms": ["android", "ios"],
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/icon.png",

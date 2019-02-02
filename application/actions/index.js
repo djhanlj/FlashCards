@@ -1,4 +1,5 @@
-import * as API from '@utils/api'
+import * as API from '@api/api'
+import { formatDeck } from '../utils/flashcards'
 
 export const RECEIVE_DECKER = 'RECEIVE_DECKER'
 export const ADD_DECKER = 'ADD_DECKER'
@@ -19,7 +20,8 @@ export function receiveDecker(decks) {
 	}
 }
 
-export function addDecker(deck) {
+export function addDecker(titleDecker) {
+	const deck = formatDeck(titleDecker)
 	return {
 		type: ADD_DECKER,
 		deck
