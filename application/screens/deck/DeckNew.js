@@ -1,5 +1,5 @@
 import React from 'react'
-import { KeyboardAvoidingView, StyleSheet, View } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { saveDeckTitle } from '@api/api'
 import { connect } from 'react-redux'

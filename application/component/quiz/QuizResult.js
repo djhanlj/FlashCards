@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import PropTypes from 'prop-types'
-import { white, dodgerblue, light } from '@utils/colors'
+import { white, dodgerblue, light, gray } from '@utils/colors'
 import { Button } from 'react-native-paper'
 import { Dimensions } from 'react-native'
 
@@ -85,11 +85,13 @@ var styles = StyleSheet.create({
 	},
 	title: {
 		textAlign: 'center',
-		fontSize: 25
+		fontSize: 25,
+		color: gray
 	},
 	subTitleCard: {
 		textAlign: 'center',
-		fontSize: 16
+		fontSize: 16,
+		color: gray
 	},
 	titleCard: {
 		textAlign: 'center',

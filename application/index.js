@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Route, RouteStatusBar } from './config/route'
-import { lightPurp } from '@utils/colors'
+import { primaryMenu } from '@utils/colors'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
@@ -21,7 +21,7 @@ class App extends Component {
 			<Provider store={store}>
 				<View style={styles.container}>
 					<RouteStatusBar
-						backgroundColor={lightPurp}
+						backgroundColor={primaryMenu}
 						barStyle="light-content"
 					/>
 					<PaperProvider>
