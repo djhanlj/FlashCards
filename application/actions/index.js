@@ -1,5 +1,5 @@
 import * as API from '@api/api'
-import { formatDeck, formatCardToDeck } from '../utils/flashcards'
+import { formatDeck } from '../utils/flashcards'
 
 export const RECEIVE_DECKER = 'RECEIVE_DECKER'
 export const ADD_DECKER = 'ADD_DECKER'
@@ -14,6 +14,8 @@ export function handleInitialData() {
 }
 
 export function receiveDecker(decks) {
+	console.log('action')
+	console.log(decks)
 	return {
 		type: RECEIVE_DECKER,
 		decks

@@ -8,10 +8,8 @@ import {
 function decks(state = {}, action) {
 	switch (action.type) {
 	case RECEIVE_DECKER:
-		return {
-			...state,
-			...action.decks
-		}
+		return action.decks
+
 	case ADD_DECKER:
 		return {
 			...state,

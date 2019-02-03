@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
+import { handleInitialData } from '@actions'
 import PropTypes from 'prop-types'
 import { Button } from 'react-native-paper'
 import { info, primary, red, gray } from '@utils/colors'
+import { removeDeck } from '@api/api'
 
 class DeckDetail extends Component {
 	static navigationOptions = ({ navigation }) => {
@@ -13,9 +15,23 @@ class DeckDetail extends Component {
 		}
 	}
 
-	render() {
+	removeDeck = title => {
+		const { loadData } = this.props
+		setTimeout(() => {
+			removeDeck(title)
+		}, 1000)
+
+		//loadData()
+		this.toHome()
+	}
+
+	toHome = () => {
 		const { navigation } = this.props
-		const { deck } = this.props
+		navigation.navigate('Home')
+	}
+
+	render() {
+		const { navigation, deck } = this.props
 		const { title, questions } = deck
 		return (
 			<View style={styles.container}>
@@ -58,6 +74,17 @@ class DeckDetail extends Component {
 								>
 									Adicionar Cartão
 								</Button>
+
+								<View style={styles.alignButton}>
+									<Button
+										icon="clear"
+										mode="contained"
+										style={styles.colorButtonRemoveDeck}
+										onPress={() => this.removeDeck(title)}
+									>
+										Remover Deck
+									</Button>
+								</View>
 							</View>
 						</View>
 					</View>
@@ -76,11 +103,21 @@ function mapStateToProps(decks, { navigation }) {
 	}
 }
 
-export default connect(mapStateToProps)(DeckDetail)
+function mapDispatchToProps(dispatch) {
+	return {
+		loadData: () => dispatch(handleInitialData())
+	}
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(DeckDetail)
 
 DeckDetail.propTypes = {
 	navigation: PropTypes.object.isRequired,
-	deck: PropTypes.object.isRequired
+	deck: PropTypes.object.isRequired,
+	loadData: PropTypes.func.isRequired
 }
 
 const styles = StyleSheet.create({
