@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Button } from 'react-native-paper'
-import { seagreen, orange, red } from '@utils/colors'
+import { info, primary, red } from '@utils/colors'
 
 class DeckDetail extends Component {
 	static navigationOptions = ({ navigation }) => {
@@ -111,10 +111,10 @@ const styles = StyleSheet.create({
 		fontSize: 20
 	},
 	colorButtonQuiz: {
-		backgroundColor: seagreen
+		backgroundColor: primary
 	},
 	colorButtonNewCard: {
-		backgroundColor: orange
+		backgroundColor: info
 	},
 
 	colorButtonRemoveDeck: {

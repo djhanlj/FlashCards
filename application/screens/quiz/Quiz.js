@@ -55,9 +55,22 @@ class Quiz extends Component {
 
 	keyExtractor = question => question.id
 
+	restarQuiz = () => {
+		this.setState({
+			cardIndex: 0,
+			endQuiz: false,
+			answerCorrect: 0
+		})
+	}
+
+	returnDetail = () => {
+		const { navigation } = this.props
+		navigation.goBack()
+	}
+
 	render() {
 		const { cardIndex, endQuiz, answerCorrect } = this.state
-		const { title, questions } = this.props.deck
+		const { questions } = this.props.deck
 
 		return (
 			<View style={styles.container}>
@@ -93,6 +106,8 @@ class Quiz extends Component {
 					<QuizResult
 						quantidade={questions.length}
 						acertos={answerCorrect}
+						restarQuiz={this.restarQuiz}
+						returnDetail={this.returnDetail}
 					/>
 				)}
 			</View>

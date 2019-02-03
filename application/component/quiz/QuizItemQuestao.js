@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Animated } from 'react-native'
 import PropTypes from 'prop-types'
-import { white, red, blue } from '@utils/colors'
+import { white, red, primary } from '@utils/colors'
 import { Button } from 'react-native-paper'
 import { Dimensions } from 'react-native'
 
@@ -203,7 +203,7 @@ var styles = StyleSheet.create({
 		justifyContent: 'space-around'
 	},
 	colorCorrect: {
-		backgroundColor: blue
+		backgroundColor: primary
 	},
 	colorIncorrect: {
 		backgroundColor: red

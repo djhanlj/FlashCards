@@ -12,7 +12,7 @@ import DeckNew from '@screens/deck/DeckNew'
 import DeckDetail from '@screens/deck/DeckDetail'
 import CardNew from '@screens/card/CardNew'
 import Quiz from '@screens/quiz/Quiz'
-import { white, blue } from '@utils/colors'
+import { white, primaryMenu } from '@utils/colors'
 
 const Tabs = createMaterialTopTabNavigator(
 	{
@@ -37,7 +37,7 @@ const Tabs = createMaterialTopTabNavigator(
 			activeTintColor: white,
 			style: {
 				height: 56,
-				backgroundColor: blue,
+				backgroundColor: primaryMenu,
 				shadowColor: 'rgba(0, 0, 0, 0.24)',
 				shadowOffset: {
 					width: 0,
@@ -45,6 +45,9 @@ const Tabs = createMaterialTopTabNavigator(
 				},
 				shadowRadius: 6,
 				shadowOpacity: 1
+			},
+			indicatorStyle: {
+				backgroundColor: white
 			}
 		}
 	}
@@ -62,7 +65,7 @@ const MainNavigator = createStackNavigator({
 		navigationOptions: {
 			headerTintColor: white,
 			headerStyle: {
-				backgroundColor: blue
+				backgroundColor: primaryMenu
 			}
 		}
 	},
@@ -71,7 +74,7 @@ const MainNavigator = createStackNavigator({
 		navigationOptions: {
 			headerTintColor: white,
 			headerStyle: {
-				backgroundColor: blue
+				backgroundColor: primaryMenu
 			}
 		}
 	},
@@ -80,7 +83,7 @@ const MainNavigator = createStackNavigator({
 		navigationOptions: {
 			headerTintColor: white,
 			headerStyle: {
-				backgroundColor: blue
+				backgroundColor: primaryMenu
 			}
 		}
 	}

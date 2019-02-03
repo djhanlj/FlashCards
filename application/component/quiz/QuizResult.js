@@ -1,11 +1,16 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import PropTypes from 'prop-types'
-import { white } from '@utils/colors'
+import { white, dodgerblue, light } from '@utils/colors'
 import { Button } from 'react-native-paper'
 import { Dimensions } from 'react-native'
 
-export default function QuizResult({ quantidade, acertos }) {
+export default function QuizResult({
+	quantidade,
+	acertos,
+	restarQuiz,
+	returnDetail
+}) {
 	return (
 		<View style={styles.container}>
 			<View style={styles.header}>
@@ -27,17 +32,17 @@ export default function QuizResult({ quantidade, acertos }) {
 					<View style={styles.alignButton}>
 						<Button
 							mode="contained"
-							style={styles.colorCorrect}
-							onPress={() => console.log()}
+							style={styles.buttonRestartQuiz}
+							onPress={restarQuiz}
 						>
 							Reiniciar Quiz
 						</Button>
 					</View>
 					<View style={styles.alignButton}>
 						<Button
-							mode="contained"
-							style={styles.colorIncorrect}
-							onPress={() => console.log()}
+							mode="outlined"
+							style={styles.buttonBack}
+							onPress={returnDetail}
 						>
 							Voltar
 						</Button>
@@ -46,6 +51,13 @@ export default function QuizResult({ quantidade, acertos }) {
 			</View>
 		</View>
 	)
+}
+
+QuizResult.propTypes = {
+	quantidade: PropTypes.number.isRequired,
+	acertos: PropTypes.number.isRequired,
+	restarQuiz: PropTypes.func.isRequired,
+	returnDetail: PropTypes.func.isRequired
 }
 
 const { width, height } = Dimensions.get('window')
@@ -91,5 +103,13 @@ var styles = StyleSheet.create({
 	alignButton: {
 		justifyContent: 'center',
 		padding: 5
+	},
+
+	buttonRestartQuiz: {
+		backgroundColor: dodgerblue
+	},
+
+	buttonBack: {
+		backgroundColor: light
 	}
 })
