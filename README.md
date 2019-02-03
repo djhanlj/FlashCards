@@ -28,7 +28,7 @@ Frontend
 
 ### Instalação
 
--   Clone ou faça download do repositório do servidor Back-End do endereço: https://github.com/djhanlj/FlashCards.git
+-   Clone ou faça download do repositório no endereço: https://github.com/djhanlj/FlashCards.git
 -   Execute dentro do projeto `npm install` no terminal
 
 ### Executando o Projeto
