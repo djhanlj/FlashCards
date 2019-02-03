@@ -10,11 +10,9 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { handleInitialData } from '@actions'
 import DeckItemList from '@component/deck/DeckItemList'
-//import { clearAsyncStorage } from '@api/api'
 
 class Home extends React.Component {
 	componentDidMount() {
-		//clearAsyncStorage()
 		const { loadData, navigation } = this.props
 		navigation.addListener('willFocus', () => {
 			loadData()
@@ -36,8 +34,6 @@ class Home extends React.Component {
 		const { decks } = this.props
 		return (
 			<View style={styles.container}>
-				<Text style={styles.cabecalho}>List Decks</Text>
-				<View style={styles.line} />
 				{decks.length > 0 ? (
 					<FlatList
 						data={decks}

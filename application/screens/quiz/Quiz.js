@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import Swiper from 'react-native-deck-swiper'
 import QuizItemQuestao from '@component/quiz/QuizItemQuestao'
 import QuizResult from '@component/quiz/QuizResult'
-import { white, red } from '@utils/colors'
+import { white, gray } from '@utils/colors'
 
 class Quiz extends Component {
 	state = {
@@ -140,7 +140,8 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		textAlign: 'left',
-		fontSize: 25
+		fontSize: 20,
+		color: gray
 	}
 })
 

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Button } from 'react-native-paper'
-import { info, primary, red } from '@utils/colors'
+import { info, primary, red, gray } from '@utils/colors'
 
 class DeckDetail extends Component {
 	static navigationOptions = ({ navigation }) => {
@@ -108,7 +108,8 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		alignItems: 'center',
-		fontSize: 20
+		fontSize: 25,
+		color: gray
 	},
 	colorButtonQuiz: {
 		backgroundColor: primary

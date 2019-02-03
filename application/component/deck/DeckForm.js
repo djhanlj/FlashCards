@@ -1,12 +1,13 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
-import { primary } from '@utils/colors'
-import { TextInput, Button } from 'react-native-paper'
+import { primary, gray } from '@utils/colors'
+import { TextInput, HelperText, Button } from 'react-native-paper'
 
 export default function DeckForm({
 	titleForm,
 	titleDecker,
+	validateForm,
 	handleTextChange,
 	submit
 }) {
@@ -20,9 +21,12 @@ export default function DeckForm({
 					value={titleDecker}
 					onChangeText={handleTextChange}
 				/>
+				<HelperText type="error" visible={validateForm}>
+					Preencha o campo!
+				</HelperText>
 			</View>
 
-			<View style={styles.alignButton}>
+			<View>
 				<Button
 					icon="add-box"
 					mode="contained"
@@ -38,25 +42,23 @@ export default function DeckForm({
 
 const styles = StyleSheet.create({
 	titleText: {
-		fontSize: 25,
+		fontSize: 20,
 		textAlignVertical: 'center',
-		textAlign: 'center'
+		textAlign: 'center',
+		color: gray
 	},
 	input: {
 		marginTop: 50
 	},
 	colorButtonSave: {
 		backgroundColor: primary
-	},
-
-	alignButton: {
-		marginTop: 15
 	}
 })
 
 DeckForm.propTypes = {
 	titleDecker: PropTypes.string.isRequired,
 	titleForm: PropTypes.string.isRequired,
+	validateForm: PropTypes.bool.isRequired,
 	handleTextChange: PropTypes.func.isRequired,
 	submit: PropTypes.func.isRequired
 }

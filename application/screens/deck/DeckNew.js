@@ -1,21 +1,34 @@
 import React from 'react'
-import { KeyboardAvoidingView, StyleSheet } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 import { saveDeckTitle } from '@api/api'
 import { connect } from 'react-redux'
 import { addDecker } from '@actions'
 import DeckForm from '@component/deck/DeckForm'
+import { Button, Paragraph, Dialog, Portal } from 'react-native-paper'
 
 class DeckNew extends React.Component {
 	state = {
-		titleDecker: ''
+		titleDecker: '',
+		validateForm: false,
+		visibleDialog: false
 	}
 
-	handleTextChange = titleDecker => this.setState({ titleDecker })
+	_showDialog = () => this.setState({ visibleDialog: true })
+
+	_hideDialog = () => this.setState({ visibleDialog: false })
+
+	handleTextChange = titleDecker =>
+		this.setState({ titleDecker: titleDecker })
 
 	submit = () => {
 		const { titleDecker } = this.state
 		const { addDecker } = this.props
+
+		if (!titleDecker) {
+			this.setState({ validateForm: true })
+			return false
+		}
 
 		/**
 		 * validate if deck name already exists
@@ -34,12 +47,13 @@ class DeckNew extends React.Component {
 			/**
 			 * Open DeckDetail
 			 */
-			this.setState({ titleDecker: '' })
+			this.setState({ titleDecker: '', validateForm: false })
 			this.openDeckDetail(titleDecker)
 		} else {
 			/**
 			 * create alert mensagem
 			 */
+			this._showDialog()
 		}
 	}
 
@@ -54,15 +68,32 @@ class DeckNew extends React.Component {
 	}
 
 	render() {
-		const { titleDecker } = this.state
+		const { titleDecker, validateForm } = this.state
 		return (
 			<KeyboardAvoidingView behavior="padding" style={styles.container}>
 				<DeckForm
 					titleForm="Qual é o título do seu novo baralho?"
+					validateForm={validateForm}
 					titleDecker={titleDecker}
 					handleTextChange={this.handleTextChange}
 					submit={this.submit}
 				/>
+				<Portal>
+					<Dialog
+						visible={this.state.visibleDialog}
+						onDismiss={this._hideDialog}
+					>
+						<Dialog.Title>Alert</Dialog.Title>
+						<Dialog.Content>
+							<Paragraph>
+								Deck Informado Já existe Tente Cadastrar Outro
+							</Paragraph>
+						</Dialog.Content>
+						<Dialog.Actions>
+							<Button onPress={this._hideDialog}>Sair</Button>
+						</Dialog.Actions>
+					</Dialog>
+				</Portal>
 			</KeyboardAvoidingView>
 		)
 	}

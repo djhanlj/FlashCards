@@ -14,7 +14,9 @@ class CardNew extends React.Component {
 
 	state = {
 		questao: '',
-		resposta: ''
+		resposta: '',
+		validateQuestao: false,
+		validateResposta: false
 	}
 
 	handleTextChange = name => {
@@ -27,6 +29,13 @@ class CardNew extends React.Component {
 		const { questao, resposta } = this.state
 		const { deck } = this.props
 		const titleDeck = removeSpaces(deck.title)
+
+		if (!questao || !resposta) {
+			if (!questao) this.setState({ validateQuestao: true })
+			if (!resposta) this.setState({ validateResposta: true })
+
+			return false
+		}
 
 		/**
 		 * AsyncStorage Save Card to Deck
@@ -53,7 +62,12 @@ class CardNew extends React.Component {
 	}
 
 	render() {
-		const { questao, resposta } = this.state
+		const {
+			questao,
+			resposta,
+			validateQuestao,
+			validateResposta
+		} = this.state
 
 		return (
 			<ScrollView style={styles.container}>
@@ -65,6 +79,8 @@ class CardNew extends React.Component {
 					<CardForm
 						questao={questao}
 						resposta={resposta}
+						validateQuestao={validateQuestao}
+						validateResposta={validateResposta}
 						titleForm="Adicione uma nova Pergunta Para o Quiz"
 						handleTextChange={this.handleTextChange}
 						submit={this.submit}
