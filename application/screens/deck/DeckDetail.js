@@ -58,19 +58,6 @@ class DeckDetail extends Component {
 								>
 									Adicionar Cartão
 								</Button>
-
-								<View style={styles.alignButton}>
-									<Button
-										icon="clear"
-										mode="contained"
-										style={styles.colorButtonRemoveDeck}
-										onPress={() =>
-											console.log('remover deck')
-										}
-									>
-										Remover Deck
-									</Button>
-								</View>
 							</View>
 						</View>
 					</View>
