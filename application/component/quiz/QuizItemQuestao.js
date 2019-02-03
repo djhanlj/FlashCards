@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Animated } from 'react-native'
 import PropTypes from 'prop-types'
-import { white } from '@utils/colors'
+import { white, red, blue } from '@utils/colors'
 import { Button } from 'react-native-paper'
 import { Dimensions } from 'react-native'
 
-export default class FlipCard extends Component {
+export default class QuizItemQuestao extends Component {
 	constructor(props) {
 		super(props)
 
@@ -33,6 +33,10 @@ export default class FlipCard extends Component {
 		})
 	}
 
+	state = {
+		buttonValidate: false
+	}
+
 	flipCard() {
 		if (this.value >= 90) {
 			Animated.spring(this.animatedValue, {
@@ -47,11 +51,15 @@ export default class FlipCard extends Component {
 				tension: 10
 			}).start()
 		}
+
+		this.setState(state => ({
+			buttonValidate: !state.buttonValidate
+		}))
 	}
 
-	handleButtonCorrect() {
-		const { handleResposta } = this.props
-		handleResposta()
+	handleButtonCorrect(value) {
+		const { answerQuestion } = this.props
+		answerQuestion(value)
 	}
 
 	render() {
@@ -62,6 +70,8 @@ export default class FlipCard extends Component {
 			transform: [{ rotateY: this.backInterpolate }]
 		}
 		const { questao } = this.props
+		const { buttonValidate } = this.state
+
 		return (
 			<View style={styles.container}>
 				<Animated.View
@@ -76,7 +86,7 @@ export default class FlipCard extends Component {
 							<Text style={styles.text}>{questao.question}</Text>
 						</View>
 
-						<View>
+						<View style={{ alignItems: 'flex-end' }}>
 							<Button
 								icon="flip-to-back"
 								mode="text"
@@ -84,69 +94,74 @@ export default class FlipCard extends Component {
 								style={styles.colorQuestion}
 								onPress={() => this.flipCard()}
 							>
-								Answer
+								Mostrar resposta
 							</Button>
 						</View>
 					</View>
 				</Animated.View>
+				{buttonValidate && (
+					<Animated.View
+						style={[
+							styles.card,
+							styles.flipCardBack,
+							backAnimatedStyle,
+							{ opacity: this.backOpacity }
+						]}
+					>
+						<View style={styles.alignView}>
+							<View>
+								<Text style={styles.text}>
+									{questao.answer}
+								</Text>
+							</View>
 
-				<Animated.View
-					style={[
-						styles.card,
-						styles.flipCardBack,
-						backAnimatedStyle,
-						{ opacity: this.backOpacity }
-					]}
-				>
-					<View style={styles.alignView}>
-						<View>
-							<Text style={styles.text}>{questao.answer}</Text>
+							<View style={{ alignItems: 'flex-end' }}>
+								<Button
+									icon="flip-to-front"
+									mode="text"
+									color="#b71845"
+									style={styles.colorQuestion}
+									onPress={() => this.flipCard()}
+								>
+									Mostrar Questão
+								</Button>
+							</View>
 						</View>
 
-						<View>
-							<Button
-								icon="flip-to-front"
-								mode="text"
-								color="#b71845"
-								style={styles.colorQuestion}
-								onPress={() => this.flipCard()}
-							>
-								Question
-							</Button>
+						<View style={styles.alignButton}>
+							<View style={{ alignSelf: 'flex-end' }}>
+								<Button
+									icon="thumb-up"
+									mode="contained"
+									style={styles.colorCorrect}
+									onPress={() =>
+										this.handleButtonCorrect('correta')
+									}
+								>
+									Correta
+								</Button>
+							</View>
+							<View style={{ alignSelf: 'flex-end' }}>
+								<Button
+									icon="thumb-down"
+									mode="contained"
+									style={styles.colorIncorrect}
+									onPress={() => this.handleButtonCorrect()}
+								>
+									Incorret
+								</Button>
+							</View>
 						</View>
-					</View>
-
-					<View style={styles.alignButton}>
-						<View style={{ alignSelf: 'flex-end' }}>
-							<Button
-								icon="thumb-up"
-								mode="contained"
-								style={styles.colorCorrect}
-								onPress={() => this.handleButtonCorrect()}
-							>
-								Correct
-							</Button>
-						</View>
-						<View style={{ alignSelf: 'flex-end' }}>
-							<Button
-								icon="thumb-down"
-								mode="contained"
-								style={styles.colorIncorrect}
-								onPress={() => this.handleButtonCorrect()}
-							>
-								Incorrect
-							</Button>
-						</View>
-					</View>
-				</Animated.View>
+					</Animated.View>
+				)}
 			</View>
 		)
 	}
 }
 
-FlipCard.propTypes = {
+QuizItemQuestao.propTypes = {
 	questao: PropTypes.object.isRequired,
-	handleResposta: PropTypes.func.isRequired
+	answerQuestion: PropTypes.func.isRequired
 }
 
 const { width, height } = Dimensions.get('window')
@@ -188,10 +203,10 @@ var styles = StyleSheet.create({
 		justifyContent: 'space-around'
 	},
 	colorCorrect: {
-		backgroundColor: '#4e4cb8'
+		backgroundColor: blue
 	},
 	colorIncorrect: {
-		backgroundColor: '#b71845'
+		backgroundColor: red
 	},
 	colorQuestion: {
 		color: '#b71845'

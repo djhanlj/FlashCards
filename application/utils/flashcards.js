@@ -21,12 +21,23 @@ export function estruturaDeck(nameDeck) {
 }
 
 export function estruturaQuestao(questao, resposta) {
-	return {
+	const objetoQuestao = {
+		id: timeToString(),
 		question: questao,
 		answer: resposta
 	}
+	return objetoQuestao
 }
 
 export function removeSpaces(nameDeck) {
 	return nameDeck.replace(/\s/g, '')
+}
+
+export function timeToString() {
+	return (
+		Date.now().toString(36) +
+		Math.random()
+			.toString(36)
+			.substr(2)
+	)
 }

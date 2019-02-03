@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
-import { blue } from '@utils/colors'
 import { TextInput, Button } from 'react-native-paper'
 
 export default function CardForm({
