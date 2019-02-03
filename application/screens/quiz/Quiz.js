@@ -6,6 +6,7 @@ import Swiper from 'react-native-deck-swiper'
 import QuizItemQuestao from '@component/quiz/QuizItemQuestao'
 import QuizResult from '@component/quiz/QuizResult'
 import { white, gray } from '@utils/colors'
+import { setLocalNotification, clearLocalNotification } from '@utils/flashcards'
 
 class Quiz extends Component {
 	state = {
@@ -39,6 +40,7 @@ class Quiz extends Component {
 			this.swiper.swipeLeft()
 			if (cardIndex + 1 >= questions.length) {
 				this.setState({ endQuiz: true })
+				clearLocalNotification().then(setLocalNotification)
 			}
 		}, 1000)
 	}
