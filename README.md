@@ -33,7 +33,7 @@ Frontend
 
 ### Executando o Projeto
 
--   Execute dentro do projeto `npm start` no terminal
+-   Execute dentro do projeto `npm start` no terminal, se houver algum erro execute o seguinte comando `expo start -c`
 -   Após a execução do comando anterior será aberto uma aba no navegador com opções de execução, podendo ser executado no emulador Android, Expo ou Smartphone próprio.
 -   Também Após a execução do comando anterior no terminal irá surgir opções de execução para teste, podendo ser executado no emulador Android, Expo ou Smartphone próprio.
 
